@@ -96,10 +96,6 @@ else (app bars, taskbar queries) is forwarded to Explorer. Panic button: `vShell
 From 0.20.1 there is no option to make vShell the Windows shell; if an older version was set as your shell, vShell undoes that at start-up
 (Explorer is the shell again from the next sign-in), and `vShell.exe --restore-shell` / `scripts\restore-explorer.ps1` still do it by hand.
 
-## Known gaps
-No taskbar grouping or thumbnails, no per-module drag between bars or widgets. The Home Assistant modules use the REST API, so values refresh every few seconds rather than instantly. Wi-Fi details use `netsh`, so they depend on Windows' English output. The Volume module's output-device switch uses an undocumented-but-stable Windows interface. The Start menu has no pinned tiles, recent files or jump lists, and does not show Windows search results (files, web).
-GPU memory shows VRAM *in use* only (no total).
-
 
 ## Theming (v0.6)
 Theme tab: solid or gradient background (Background to a Gradient colour, with an angle), a Secondary Accent colour, Main Accent / background colours
