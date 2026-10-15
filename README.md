@@ -5,7 +5,10 @@ A standalone Windows 11 bar/shell, ported in spirit from **SharpE's SharpBar** (
 C#/.NET 8 + WPF rewrite - the original is Delphi 2007 code tied to SharpE's skin engine and services.
 No NuGet packages needed. GPL-3.0 (derived from SharpEnviro's design).
 
-
+![Screenshot](images/bar1.png)
+![Screenshot](images/bar2.png)
+![Screenshot](images/settings.png)
+![Screenshot](images/widgets.png)
 
 ## Modules (set individually per bar)
 
