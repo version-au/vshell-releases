@@ -1,11 +1,8 @@
-[README.md](https://github.com/user-attachments/files/33491944/README.md)
 # vShell  (v0.10)
 
 A standalone Windows 11 bar/shell, ported in spirit from **SharpE's SharpBar** (SrcForger/SharpEnviro). It is a
 C#/.NET 8 + WPF rewrite - the original is Delphi 2007 code tied to SharpE's skin engine and services.
 No NuGet packages needed. GPL-3.0 (derived from SharpEnviro's design).
-
-
 
 ## Modules (set individually per bar)
 
@@ -27,9 +24,10 @@ No NuGet packages needed. GPL-3.0 (derived from SharpEnviro's design).
 | **Text label** | A piece of text (bold, size, colour) - headings and notes for widgets. |
 | **Home Assistant entities** | Any entities you choose, with their values; click a light, switch, scene, script, button, lock, cover or automation to operate it. Pick them from a list fetched from Home Assistant. Connection details on the Integrations page of Settings (address + long-lived token, stored encrypted for your Windows account). |
 | **Weather** | Icon and temperature (optionally the condition and today's high / low), details on hover, a 7-day forecast on click. From Open-Meteo (free, no account - search for your town) or a Home Assistant weather entity. |
-| **Now playing** | Album art, title and artist of whatever Windows' media controls show (Spotify, browsers, Plex ...), with previous / play-pause / next buttons, scroll to change track, and a bigger card on click. |
+| **Now playing** | Album art, title and artist of whatever Windows' media controls show (Spotify, browsers, Plex ...), with previous / play-pause / next buttons, a progress bar you can click to jump (optionally the time), scroll to change track, and a bigger card on click. With Jellyfin set up under Integrations, the Jellyfin apps get a progress bar too. |
 | **Power flow** (widgets) | Solar, grid, battery and home as circles joined by lines with moving dots showing which way the power flows (faster for more power); grid import / export, battery charge % and charging / discharging, and a ring round Home showing how much comes from solar, battery and grid. From Home Assistant power sensors (W or kW). |
 | **Proxmox VE** | Your Proxmox cluster: nodes (CPU and memory, as text or small meters), guests (VMs and containers, running count on a bar or a list in a widget) or storage (how full each pool is). On a bar, click for the whole cluster; click a guest for Start / Shut down / Reboot / Stop (asks first). Connection on the Integrations page: one or more node addresses and an API token, secret stored encrypted. |
+| **Downloads** | qBittorrent and / or SABnzbd on your server. On a bar: download (and upload) speed as text, line, bars, meter, ring (how far the whole queue is) or tile, plus the number of downloads; click for the list. In a widget: each client's speeds and its downloads with progress, size and time left - click one to pause / resume it; pause / resume everything, qBittorrent's alternative speed limits, open the web page. A notice when a download finishes or fails. Run box: `!qb ubuntu`, `!sab`, and paste a magnet link / .torrent / .nzb address to add it. Connections on the Integrations page. |
 | **Service status** | A coloured dot per service (green up, yellow slow, red down) checked in the background by web address, TCP port or ping; click a web address to open it. |
 | **Spacer** | Flexible gap (pushes the modules after it to the right) or a fixed-width gap. |
 
@@ -45,6 +43,12 @@ No NuGet packages needed. GPL-3.0 (derived from SharpEnviro's design).
 * **Per bar:** height, full width, **font size, corner radius, edge margin**, and a corner mode: round all four corners, or only the
   two that do not touch the screen edge (a top bar rounds its bottom corners, a bottom bar its top corners).
 * Right-click an empty part of a bar: Settings, add/remove bar, Task Manager, Run, File Explorer, Exit.
+* **Three zones (0.23, full-width bars):** each module sits in the Left, Centre or Right zone (module setting, or Ctrl+drag it into
+  another zone); the centre zone stays in the middle of the bar and spacers only fill their own zone.
+* **Separator style (0.23):** Dots, Line, Chips (every module in a chip) or None.
+* **Ring and Tile (0.23):** extra graph styles for CPU, Memory, GPU, Disk and HWiNFO sensors.
+* **Run box (0.25, 0.26):** a search field for bars and widgets - type straight into it, results drop down underneath; its keys (e.g. Alt+Space) open it in the middle of the main monitor: apps, paths, web addresses, `!g` / `!yt` / your own
+  !bangs, `=sums`, `>commands`, and `!s` to search Seerr and request movies / shows (set up Seerr on the Integrations page), `!qb` / `!sab` for your downloads, and a pasted magnet / .torrent / .nzb address is added to qBittorrent / SABnzbd.
 
 Settings live in `%APPDATA%\vShell\settings.json` (old v0.1 files are migrated automatically).
 Log: `%APPDATA%\vShell\vshell.log`.
@@ -61,6 +65,15 @@ HWiNFO sensor and Clock (the taskbar, tray and spacer only make sense on a bar).
   themselves from it), padding, space between modules, font size, **corner radius**, background opacity, border and shadow on/off.
   Colours and the font family come from the Appearance page, shared with the bars.
 * **Layer:** by default a widget sits on the desktop behind your windows; tick *Keep above other windows* to float it. *Lock position* stops dragging.
+* **Box (0.23):** position, Width and Height are the box inside the outline, so outline / shadow / style changes never move a widget.
+  *Keep the box size* freezes the current size.
+* **Snap links (0.23):** what a widget snapped to is remembered. When a widget changes size, the widgets snapped to it move to keep the gap, and
+  a widget snapped to the right / bottom screen edge grows left / up. Changing a gap re-spaces them (switch: *Re-space snapped widgets when
+  the gap changes*). Dragging away (or Alt-dropping) lets go.
+* **Arrangement (0.23):** Stack, Row or Grid (columns); each module in its own card; or tabs (one module at a time, renamable). Optional header row (with a
+  collapse arrow when *Collapsible* is on), an accent edge (top / left) and accent colour per widget, and Comfortable / Compact density.
+* **Notes (0.24):** a Notes module for widgets - Note, Checklist (due dates, drag to reorder), Markdown or Log - kept in vShell
+  (several notes per widget) or in a .md / .txt file that syncs both ways. Click to type on the desktop; Win+Shift+N quick-note key (optional).
 * Works alongside Explorer and in shell mode.
 
 ## HWiNFO and temperatures
@@ -95,6 +108,10 @@ vShell puts its own invisible `Shell_TrayWnd` window in front of Explorer's, so 
 else (app bars, taskbar queries) is forwarded to Explorer. Panic button: `vShell.exe --restore-taskbar` brings the taskbar back.
 From 0.20.1 there is no option to make vShell the Windows shell; if an older version was set as your shell, vShell undoes that at start-up
 (Explorer is the shell again from the next sign-in), and `vShell.exe --restore-shell` / `scripts\restore-explorer.ps1` still do it by hand.
+
+## Known gaps
+No taskbar grouping or thumbnails, no per-module drag between bars or widgets. The Home Assistant modules use the REST API, so values refresh every few seconds rather than instantly. Wi-Fi details use `netsh`, so they depend on Windows' English output. The Volume module's output-device switch uses an undocumented-but-stable Windows interface. The Start menu has no pinned tiles, recent files or jump lists, and does not show Windows search results (files, web).
+GPU memory shows VRAM *in use* only (no total).
 
 
 ## Theming (v0.6)
