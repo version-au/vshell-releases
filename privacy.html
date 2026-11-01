@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vShell privacy policy</title>
+<style>
+  body { font-family: "Segoe UI", system-ui, sans-serif; line-height: 1.55; max-width: 760px; margin: 40px auto; padding: 0 20px; color: #222; background: #fff; }
+  h1 { font-size: 1.8em; margin-bottom: 0; }
+  h2 { font-size: 1.2em; margin-top: 1.8em; }
+  .date { color: #666; margin-top: 4px; }
+  code { background: #f2f2f2; padding: 1px 4px; border-radius: 3px; }
+  @media (prefers-color-scheme: dark) { body { color: #ddd; background: #181818; } .date { color: #999; } code { background: #2a2a2a; } }
+</style>
+</head>
+<body>
+
+<h1>vShell privacy policy</h1>
+<p class="date">Effective 1 November 2026</p>
+
+<p>vShell is a desktop bar and widget app for Windows, made by Steven ("V"). It runs on your own PC. This policy explains what
+vShell does with information, with particular attention to the Mail plugin's <strong>Sign in with Google</strong>, which is what
+Google's rules ask us to describe.</p>
+
+<h2>The short version</h2>
+<ul>
+  <li>vShell has no servers of its own. Nothing you do in it is sent to the developer, and nothing is collected for analytics or advertising.</li>
+  <li>Everything vShell stores lives on your PC, in your Windows user profile. Passwords and sign-in tokens are stored encrypted for your Windows account.</li>
+  <li>vShell only talks to the services you set it up to talk to: your mail server, your Home Assistant, your media server, and so on.</li>
+</ul>
+
+<h2>Sign in with Google (the Mail plugin)</h2>
+<p>The Mail plugin can watch a Gmail account for unread messages. If you choose <em>Sign in with Google</em>, vShell asks Google for
+permission to use IMAP with your account (Google's <code>https://mail.google.com/</code> scope) and for your email address.</p>
+
+<p><strong>What vShell reads.</strong> For the folder you choose (normally the Inbox), vShell counts the unread messages and reads the
+sender, subject and date of the unread ones, so it can show the count on your bar, list the messages in a popup, and notify you when new
+ones arrive. It also reads the list of your folders when you pick which folder to watch. It never reads message bodies or attachments.</p>
+
+<p><strong>What vShell changes.</strong> Only what you ask it to, by clicking: it can mark a message as read, and move a message to the
+Trash (or delete it where the server has no Trash folder). It does not send mail, and it does not change anything on its own.</p>
+
+<p><strong>What is stored, and where.</strong> The sign-in token Google gives vShell is stored in vShell's settings file on your PC
+(<code>%APPDATA%\vShell\settings.json</code>), encrypted with Windows' data protection so only your Windows account can read it.
+Message senders and subjects are kept in memory while vShell runs; the ones that appeared in a notification stay in vShell's
+notification history on your PC until you clear it. Your email address is stored with the account's settings so vShell knows which
+account it is.</p>
+
+<p><strong>Where the data goes.</strong> Only between your PC and Google's own servers (Google's sign-in and token services, and
+<code>imap.gmail.com</code>). vShell does not send your Google data, or anything derived from it, to the developer or to any third
+party. There is no cloud component.</p>
+
+<p><strong>Limited Use.</strong> vShell's use and transfer to any other app of information received from Google APIs will adhere to the
+<a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the
+Limited Use requirements. In plain terms: the data is used only to show you your own mail in vShell, is never used for advertising, and
+is never sold or shared.</p>
+
+<p><strong>Taking the access away.</strong> You can stop it at any time, in any of these ways:</p>
+<ul>
+  <li>In vShell: Settings &gt; Plugins &gt; Mail &gt; <em>Sign out</em> on the account, or remove the account, or remove the Mail plugin. The stored token is deleted.</li>
+  <li>At Google: <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> &gt; vShell &gt; Remove access. vShell's token stops working at once.</li>
+  <li>Uninstalling vShell and deleting the <code>%APPDATA%\vShell</code> folder removes everything it stored.</li>
+</ul>
+
+<h2>Other mail accounts</h2>
+<p>An account set up with a password (an app password for Gmail, Yahoo, iCloud, or a mail server of your own) works the same way:
+the password is stored encrypted on your PC and is sent only to the mail server you typed in.</p>
+
+<h2>The rest of vShell</h2>
+<ul>
+  <li><strong>Settings and history</strong> are kept in <code>%APPDATA%\vShell</code> on your PC, with daily backups in the same place.</li>
+  <li><strong>Plugins</strong> connect to services you choose and set up yourself (Home Assistant, Jellyfin, Seerr, Proxmox, UniFi,
+    Uptime Kuma and others). Each connects directly from your PC to that service with the address and key you gave it, and to nothing else.</li>
+  <li><strong>Weather</strong> fetches forecasts from Open-Meteo for the place you set.</li>
+  <li><strong>Updates</strong>: vShell checks its release page for a newer version and downloads it from there. That is an ordinary web
+    request; no account or personal information goes with it.</li>
+  <li><strong>The log</strong> (<code>%APPDATA%\vShell\vshell.log</code>) is written on your PC for troubleshooting and never sent anywhere unless you send it.</li>
+</ul>
+
+<h2>Children</h2>
+<p>vShell is not aimed at children and does not knowingly collect information from anyone.</p>
+
+<h2>Changes to this policy</h2>
+<p>If vShell starts handling data differently, this page will be updated and the date at the top changed.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: <a href="mailto:[contact email]">[contact email]</a>.</p>
+
+</body>
+</html>
